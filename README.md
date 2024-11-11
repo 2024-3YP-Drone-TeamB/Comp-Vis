@@ -14,8 +14,8 @@ This version only includes the image preprocessing pipeline for thermographic im
 
 #### Whats new?
 
-Included this readme.md file
-Created the image_preprocessing module
-    This module includes the PreProcessedImage Class
-    This module includes the TestPreProcessedImage Class
-Created the testing.py file to implement testing of aspects of the codebase
+ - Included this readme.md file
+ - Created the image_preprocessing module
+     - This module includes the PreProcessedImage Class
+     - This module includes the TestPreProcessedImage Class
+ - Created the testing.py file to implement testing of aspects of the codebase
