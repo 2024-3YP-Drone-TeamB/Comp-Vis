@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Landmines detection dataset - v4 2024-01-11 1-45am']
+
+roboflow:
+  workspace: xamurani
+  project: landmines_detection
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/xamurani/landmines_detection/dataset/1
