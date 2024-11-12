@@ -2,46 +2,39 @@ from PIL import Image
 import numpy as np
 import cv2
 
-class PreProcessedImage:
+class PreProcessor:
+    """Class for preprocessing images. Automatically removes EXIF data and loads images in BGR format as a numpy array."""
     def __init__(self, image_path, target_size=(640, 640)):
         """
-        Initializes the PreProcessedImage Class.
+        Initializes the PreProcessor Class.
 
         Args:
             image_path (str): Path to the image file. The image should be a .jpg file.
             target_size (tuple, optional): Desired size (width, height) to resize the image to. Defaults to (640, 640).
+            Ensures that the exif data is removed from the image and loads the image in BGR, numpy array format.
         """
         self.image_path = image_path
         self.target_size = target_size
-        self.image = self.remove_exif_data()  # Remove EXIF and load image directly
+        self.image = self.load_image_without_exif()
+
+    def load_image_without_exif(self):
+        """Loads an image with EXIF data removed. Return the image in BGR format, as a numpy array."""
+        img = Image.open(self.image_path).convert("RGB")  # Convert to RGB to remove EXIF
+        return cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)  # Convert to BGR for OpenCV compatibility
 
     def resize_image(self):
-        """Resize an image to the target size."""
-        self.image = cv2.resize(self.image, self.target_size)
-        return self.image
-
-    def remove_exif_data(self):
-        """Load an image with EXIF data removed."""
-        with Image.open(self.image_path) as img:
-            img = img.convert("RGB")  # Removing EXIF by converting to RGB
-        return cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        """Resize the image to the target size."""
+        return cv2.resize(self.image, self.target_size)
 
     def convert_to_grayscale(self):
         """Convert the image to grayscale."""
-        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
-        return self.image
-
-    def preprocess_image(self):
-        """Run all preprocessing steps and return the final processed image."""
-        self.resize_image()
-        self.convert_to_grayscale()
-        return self.image
+        return cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
 
 
-class TestPreProcessedImage:
+class TestPreProcessor:
     def __init__(self, image_path, target_size=(640, 640)):
         """
-        Initializes the TestPreProcessedImage Class.
+        Initializes the TestPreProcessor Class.
 
         Args:
             image_path (str): Path to the image file.
@@ -52,7 +45,7 @@ class TestPreProcessedImage:
 
     def test_resize_image(self):
         """Check that the resized image is the target size."""
-        preprocessed_image = PreProcessedImage(self.image_path, self.target_size)
+        preprocessed_image = PreProcessor(self.image_path, self.target_size)
         resized_image = preprocessed_image.resize_image()
         assert resized_image.shape[:2] == self.target_size, "Resized image dimensions do not match target size."
 
@@ -62,7 +55,7 @@ class TestPreProcessedImage:
         original_image = cv2.imread(self.image_path)
 
         # Preprocess the image
-        preprocessed_image = PreProcessedImage(self.image_path, self.target_size)
+        preprocessed_image = PreProcessor(self.image_path, self.target_size)
         processed_image = preprocessed_image.preprocess_image()
 
         # Convert processed image to BGR for consistency in display
@@ -102,4 +95,16 @@ class TestPreProcessedImage:
         cv2.imshow("Original and Processed Images with Padding", combined_image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+        
+class ThermalImagePreProcessor(PreProcessor):
+    """Inherits from PreProcessor Class and adds thermal image specific preprocessing methods."""
+    def __init__(self, target_size=(640,640), temperature_range=(0, 40)):
+        super().__init__(target_size)
+        self.temperature_range = temperature_range
 
+    def temperature_normalization(self, image):
+        
+        # TODO: Implement temperature normalisation
+        
+        pass
+    

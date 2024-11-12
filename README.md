@@ -7,10 +7,10 @@
 ### Version 1.01 
 #### Author - Rory Millard UNIV 11/11/24
 
-This version only includes the image preprocessing pipeline for thermographic images to ensure:
-    - Images are resized to640x640
-    - Images are grayscale
-    - Images dont contain EXIF data
+    This version only includes the image preprocessing pipeline for thermographic images to ensure:
+         - Images are resized to 640x640
+         - Images are grayscale
+         - Images dont contain EXIF data
 
 #### Whats new?
 
