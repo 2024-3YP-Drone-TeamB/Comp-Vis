@@ -1,6 +1,6 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
+train: data\landmines_detection.v1i.yolov11\train\images
+val: data\landmines_detection.v1i.yolov11\val\images
+test: data\landmines_detection.v1i.yolov11\test\images
 
 nc: 1
 names: ['Landmines detection dataset - v4 2024-01-11 1-45am']

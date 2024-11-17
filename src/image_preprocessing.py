@@ -107,4 +107,43 @@ class ThermalImagePreProcessor(PreProcessor):
         # TODO: Implement temperature normalisation
         
         pass
-    
+
+    def show_processing(self):
+        """Display the original and processed images side by side with padding if needed."""
+        # Load the original image
+        original_image = cv2.imread(self.image_path)
+
+        # Convert the preprocessed image to grayscale and resize it
+        processed_image = self.convert_to_grayscale()
+        processed_image = cv2.resize(processed_image, self.target_size)
+
+        # Convert processed image to BGR for consistent display in color
+        processed_image = cv2.cvtColor(processed_image, cv2.COLOR_GRAY2BGR)
+
+        # Get heights and widths of both images
+        original_height, original_width = original_image.shape[:2]
+        processed_height, processed_width = processed_image.shape[:2]
+
+        # Determine the maximum height and width for padding
+        max_height = max(original_height, processed_height)
+        max_width = max(original_width, processed_width)
+
+        # Function to pad images to the same size
+        def pad_image(img, target_height, target_width):
+            top_pad = (target_height - img.shape[0]) // 2
+            bottom_pad = target_height - img.shape[0] - top_pad
+            left_pad = (target_width - img.shape[1]) // 2
+            right_pad = target_width - img.shape[1] - left_pad
+            return cv2.copyMakeBorder(img, top_pad, bottom_pad, left_pad, right_pad, cv2.BORDER_CONSTANT, value=(0, 0, 0))
+
+        # Pad original and processed images to have the same dimensions
+        padded_original = pad_image(original_image, max_height, max_width)
+        padded_processed = pad_image(processed_image, max_height, max_width)
+
+        # Stack the images side by side
+        combined_image = np.hstack((padded_original, padded_processed))
+
+        # Display the combined image
+        cv2.imshow("Original and Processed Images with Padding", combined_image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
