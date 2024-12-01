@@ -1,0 +1,24 @@
+{
+    "image_filename": "IMG_0001.jpg",
+    "creation_timestamp": "2025-03-15T14:32:15Z",
+    "geospatial_info": {
+        "latitude": 51.629172,
+        "longitude": 36.214613,
+        "altitude": 10, 
+        "pitch": 0,
+        "yaw": 0,
+        "roll": 0
+    },
+
+    "sensor_metadata": {
+        "sensor_id": "sensor_001",
+        "sensor_type": "BW",
+        "sensor_resolution": "640x640",
+        "sensor_fov": 90
+    },
+
+    "mission_metadata": {
+        "mission_id": "mission_0001",
+        "drone_id": "drone_alpha_001"
+    }
+}

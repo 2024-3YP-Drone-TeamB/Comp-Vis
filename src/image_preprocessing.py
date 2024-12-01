@@ -98,9 +98,10 @@ class TestPreProcessor:
         
 class ThermalImagePreProcessor(PreProcessor):
     """Inherits from PreProcessor Class and adds thermal image specific preprocessing methods."""
-    def __init__(self, target_size=(640,640), temperature_range=(0, 40)):
-        super().__init__(target_size)
+    def __init__(self, image_path, target_size=(640,640), temperature_range=(0, 40)):
+        super().__init__(image_path, target_size)
         self.temperature_range = temperature_range
+        self.image = cv2.imread(self.image_path)
 
     def temperature_normalization(self, image):
         

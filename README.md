@@ -22,3 +22,9 @@
    The files contain all the relevant training graphs, files and stats
  - Also added the google colab notebooks used for training in notebooks/
 
+#### data/mission_XXX/run_001
+This is the defualt file name for data from the drone.
+I am assuming that the data from the drone hard drive is in a very particular format:
+It should be a series of images, with the filename 'IMG_XXXX.jpg' (e.g. IMG_1, IMG_2 etc), in ascending order.
+Each image has a corresponding JSON file; 'IMG_XXXX.json' (where IMG_1234.jpg corresponds to IMG_1234.json, and so on)
+See inside data/mission_XXX/run_001 for an example of this. The .json file has particular arguments; see IMG_1.json for an example
